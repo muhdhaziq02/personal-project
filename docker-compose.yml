@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  grpc-server:
+    build:
+      context: .
+      dockerfile: grpc-server.Dockerfile
+    ports:
+      - "50051:50051" # Expose gRPC port [cite: 15]
+
+  rest-server:
+    build:
+      context: .
+      dockerfile: rest-server.Dockerfile
+    ports:
+      - "5001:5000" # Expose REST port [cite: 15]
+
+  client:
+    build:
+      context: .
+      dockerfile: client.Dockerfile
+    depends_on:
+      - grpc-server
+      - rest-server

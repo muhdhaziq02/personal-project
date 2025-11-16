@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package comparator;
+
+// The service definition.
+service Comparator {
+  // 1. MapReduce (simplified as ProcessData)
+  rpc ProcessData(NumberList) returns (Number) {}
+
+  // 2. Word Count
+  rpc GetWordCount(Text) returns (WordCountResponse) {}
+
+  // 3. Find Min/Max
+  rpc GetMinMax(NumberList) returns (MinMaxResponse) {}
+
+  // 4. Sort Numbers
+  rpc GetSorted(NumberList) returns (SortedResponse) {}
+
+  // 5. List Primes
+  rpc GetPrimes(NumberList) returns (NumberList) {}
+}
+
+// ---- Message Types ----
+
+message NumberList {
+  repeated int32 numbers = 1;
+}
+
+message Number {
+  int32 value = 1;
+}
+
+message Text {
+  string content = 1;
+}
+
+message WordCountResponse {
+  map<string, int32> counts = 1;
+}
+
+message MinMaxResponse {
+  int32 min = 1;
+  int32 max = 2;
+}
+
+message SortedResponse {
+  repeated int32 ascending = 1;
+  repeated int32 descending = 2;
+}
